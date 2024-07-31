@@ -2,43 +2,43 @@
   <div class="form-container">
     <h2 class="form-title">Reporte de Problemas</h2>
     <form @submit.prevent="handleSubmit">
-      <div>
+      <div class="form-group">
         <label for="deviceType">Tipo de dispositivo:</label>
         <input type="text" id="deviceType" v-model="form.deviceType" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="deviceModel">Modelo del dispositivo:</label>
         <input type="text" id="deviceModel" v-model="form.deviceModel" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="operatingSystem">Sistema operativo:</label>
         <input type="text" id="operatingSystem" v-model="form.operatingSystem" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="appVersion">Versión de la aplicación:</label>
         <input type="text" id="appVersion" v-model="form.appVersion" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="incidentDate">Fecha y hora del incidente:</label>
         <input type="datetime-local" id="incidentDate" v-model="form.incidentDate" required />
       </div>
-      <div>
+      <div class="form-group">
         <label for="problemDescription">Descripción detallada del problema:</label>
         <textarea id="problemDescription" v-model="form.problemDescription" required></textarea>
       </div>
-      <div>
+      <div class="form-group">
         <label for="reproduccionSteps">Pasos para reproducir el problema:</label>
         <textarea id="reproduccionSteps" v-model="form.reproduccionSteps" required></textarea>
       </div>
-      <div>
+      <div class="form-group">
         <label for="expectedBehavior">Comportamiento esperado:</label>
         <textarea id="expectedBehavior" v-model="form.expectedBehavior" required></textarea>
       </div>
-      <div>
+      <div class="form-group">
         <label for="actualBehavior">Comportamiento actual:</label>
         <textarea id="actualBehavior" v-model="form.actualBehavior" required></textarea>
       </div>
-      <div>
+      <div class="form-group">
         <label for="severityLevel">Nivel de severidad:</label>
         <select id="severityLevel" v-model="form.severityLevel" required>
           <option value="">Seleccione una opción</option>
@@ -48,7 +48,7 @@
           <option value="critical">Crítico</option>
         </select>
       </div>
-      <div>
+      <div class="form-group">
         <label for="hasPreviouslyOccurred">¿Ha ocurrido este problema antes?</label>
         <select id="hasPreviouslyOccurred" v-model="form.hasPreviouslyOccurred" required>
           <option value="">Seleccione una opción</option>
@@ -56,26 +56,21 @@
           <option value="no">No</option>
         </select>
       </div>
-      <div>
+      <div class="form-group">
         <label for="additionalComments">¿Algún otro comentario o información adicional?</label>
         <textarea id="additionalComments" v-model="form.additionalComments"></textarea>
       </div>
-      <div>
+      <div class="form-group">
         <label for="screenshots">Capturas de pantalla o videos:</label>
         <input type="file" id="screenshots" multiple @change="handleFileUpload" />
       </div>
-      <button type="submit">Enviar</button>
-    </form>
       <button type="submit" class="submit-button">Enviar</button>
+    </form>
   </div>
-
 </template>
-
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
-import { ElInput, ElSelect, ElOption, ElDatePicker, ElButton, ElUpload } from 'element-plus';
-import 'element-plus/dist/index.css';
 
 interface FormData {
   deviceType: string;
@@ -95,14 +90,6 @@ interface FormData {
 
 export default defineComponent({
   name: 'MyForm',
-  components: {
-    ElInput,
-    ElSelect,
-    ElOption,
-    ElDatePicker,
-    ElButton,
-    ElUpload
-  },
   setup() {
     const form = reactive<FormData>({
       deviceType: '',
@@ -148,6 +135,7 @@ export default defineComponent({
   padding: 20px;
   background-color: #f5f5f5;
   border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-title {
@@ -156,14 +144,25 @@ export default defineComponent({
   text-align: center;
 }
 
-.el-form-item {
+.form-group {
   margin-bottom: 20px;
 }
 
-.el-input,
-.el-select,
-.el-date-editor {
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
   width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .submit-button {
@@ -175,10 +174,30 @@ export default defineComponent({
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .submit-button:hover {
   background-color: #0056b3;
 }
-</style>
 
+@media (max-width: 600px) {
+  .form-container {
+    padding: 10px;
+  }
+
+  .form-title {
+    font-size: 20px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 12px;
+  }
+
+  .submit-button {
+    font-size: 14px;
+  }
+}
+</style>
