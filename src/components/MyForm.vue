@@ -4,7 +4,13 @@
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <label for="deviceType">Tipo de dispositivo:</label>
-        <input type="text" id="deviceType" v-model="form.deviceType" required />
+        <select id="deviceType" v-model="form.deviceType" required>
+          <option value="">Seleccione una opción</option>
+          <option value="PC">PC</option>
+          <option value="Mac">Mac</option>
+          <option value="iOS">iOS</option>
+          <option value="Android">Android</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="deviceModel">Modelo del dispositivo:</label>
@@ -12,7 +18,15 @@
       </div>
       <div class="form-group">
         <label for="operatingSystem">Sistema operativo:</label>
-        <input type="text" id="operatingSystem" v-model="form.operatingSystem" required />
+        <select id="operatingSystem" v-model="form.operatingSystem" @change="checkOtherOS" required>
+          <option value="">Seleccione una opción</option>
+          <option value="Windows 11">Windows 11</option>
+          <option value="macOS Ventura">macOS Ventura</option>
+          <option value="iOS 16">iOS 16</option>
+          <option value="Android 13">Android 13</option>
+          <option value="Other">Otro</option>
+        </select>
+        <input v-if="isOtherOS" type="text" v-model="form.otherOperatingSystem" placeholder="Ingrese el sistema operativo" required />
       </div>
       <div class="form-group">
         <label for="appVersion">Versión de la aplicación:</label>
@@ -70,12 +84,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, ref } from 'vue';
 
 interface FormData {
   deviceType: string;
   deviceModel: string;
   operatingSystem: string;
+  otherOperatingSystem?: string;
   appVersion: string;
   incidentDate: string;
   problemDescription: string;
@@ -107,6 +122,8 @@ export default defineComponent({
       screenshots: []
     });
 
+    const isOtherOS = ref(false);
+
     const handleFileUpload = (event: Event) => {
       const files = (event.target as HTMLInputElement).files;
       if (files) {
@@ -119,10 +136,19 @@ export default defineComponent({
       // Add your form submission logic here
     };
 
+    const checkOtherOS = () => {
+      isOtherOS.value = form.operatingSystem === 'Other';
+      if (!isOtherOS.value) {
+        form.otherOperatingSystem = '';
+      }
+    };
+
     return {
       form,
+      isOtherOS,
       handleFileUpload,
-      handleSubmit
+      handleSubmit,
+      checkOtherOS
     };
   }
 });

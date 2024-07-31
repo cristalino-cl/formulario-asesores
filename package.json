@@ -4,8 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "predeploy": "bun run build",
-    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
@@ -16,12 +14,12 @@
   },
   "dependencies": {
     "element-plus": "^2.7.8",
-    "gh-pages": "^6.1.1",
     "vue": "^3.4.29"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
     "@tsconfig/node20": "^20.1.4",
+    "@types/babel__core": "^7.20.5",
     "@types/node": "^20.14.5",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/eslint-config-prettier": "^9.0.0",
