@@ -189,6 +189,7 @@ export default defineComponent({
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  background-color: #fff; /* Ensure white background */
 }
 
 .submit-button {
