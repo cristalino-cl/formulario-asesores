@@ -8,5 +8,4 @@ export default defineConfig({
       '@': './src'
     },
   },
-  base: '/formulario-asesores/'
 });
